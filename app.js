@@ -139,18 +139,35 @@ const newCard = function() {
 let system = null;
 
 const clickReview = function(card) {
+  const erroTimeout = 1500;
+  const mostraCorreta = function(cb) {
+    let correctCard = 0;
+    for (let i = 0; i < 3; i++) {
+      if (window.currentWord.word_en == window.currentShuffle[i].en) {
+        correctCard = i + 1;
+        break;
+      }
+    }
+    document.getElementById('card-' + correctCard).style.backgroundColor = '#4CAF50';
+    window.setTimeout(function() {
+      document.getElementById('card-' + correctCard).style.backgroundColor = '#5265b3';
+      if (cb) cb();
+    }, erroTimeout);
+  };
   if (card == 4) {
     system.reviewFlashcard(window.currentWordIndex, false);
-    newCard();
+    mostraCorreta(function() {
+      newCard();
+    });
   } else {
     const acertou = (window.currentWord.word_en == window.currentShuffle[card - 1].en);
-    console.log('acertou=' + acertou);
     document.getElementById('card-' + card).style.backgroundColor = (acertou) ? '#4CAF50' : '#ff8585';
     window.setTimeout(function() {
       document.getElementById('card-' + card).style.backgroundColor = '#5265b3';
       system.reviewFlashcard(window.currentWordIndex, acertou);
       newCard();
-    }, 300);
+    }, acertou ? 200 : erroTimeout);
+    if (!acertou) mostraCorreta(null);
   }
 };
 
