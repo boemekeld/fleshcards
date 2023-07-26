@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashCards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a; /* Cor de fundo para o dark mode */
+      color: #fff; /* Cor do texto para o dark mode */
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .cards-container {
+      display: grid;
+      gap: 10px;
+      margin: 0 auto; /* Centralizar os blocos */
+      background-color: #2a2a2a; /* Cor de fundo para o dark mode */
+      padding: 10px;
+      box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+    }
+    .card {
+      width: 90%;
+      height: 100px; /* Tamanho maior dos cards */
+      background-color: #4CAF50;
+      margin: 5px auto;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column; /* Para posicionar as palavras no centro */
+      font-size: 20px;
+    }
+    .play-button {
+      position: fixed;
+      top: 50px;
+      left: 50%;
+      height: 200px;
+      width: 200px;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background-color: #5b5b5b;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .info{
+      text-align: center;
+      font-size: 14px;
+    }
+    #card-4{background-color: #b067cd;}
+  </style>
+  <script src="./words-dump.js"></script>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <div class="container">
+    <button id="bt-play" class="play-button">PLAY</button>
+    <div class="cards-container">
+      <span id="info" class="info">BOX 1: 2888, BOX 2: 50, BOX 3: 1, BOX 4: 0</span>
+      <div id="card-1" class="card">
+        <span class="word-en">ABOUT</span>
+        <span>&nbsp;</span>
+        <span class="word-pt">SOBRE</span>
+      </div>
+      <div id="card-2" class="card">
+        <span class="word-en">ABOUT</span>
+        <span>&nbsp;</span>
+        <span class="word-pt">SOBRE</span>
+      </div>
+      <div id="card-3" class="card">
+        <span class="word-en">ABOUT</span>
+        <span>&nbsp;</span>
+        <span class="word-pt">SOBRE</span>
+      </div>
+      <div id="card-4" class="card">
+        <span> X </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
