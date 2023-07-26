@@ -28,10 +28,6 @@ class LeitnerSystem {
   }
 
   reviewFlashcard(flashcardIndex, correct) {
-    document.getElementById('bt-play').style.backgroundColor = (correct) ? '#9bffb2' : '#ff8585';
-    window.setTimeout(function() {
-      document.getElementById('bt-play').style.backgroundColor = '#5b5b5b';
-    }, 500);
     const flashcard = this.flashcards[flashcardIndex];
     const oldBox = flashcard.box - 1;
     if (correct) {
@@ -121,6 +117,7 @@ const newCard = function() {
 
     let audio = new Audio('./audio/' + window.currentWord.word_en + '.mp3');
     audio.play();
+    //AUDIOS[window.currentWord.word_en].play();
   }
 };
 
@@ -129,12 +126,17 @@ let system = null;
 const clickReview = function(card) {
   if (card == 4) {
     system.reviewFlashcard(window.currentWordIndex, false);
+    newCard();
   } else {
     const acertou = (window.currentWord.word_en == window.currentShuffle[card - 1].en);
     console.log('acertou=' + acertou);
-    system.reviewFlashcard(window.currentWordIndex, acertou);
+    document.getElementById('card-' + card).style.backgroundColor = (acertou) ? '#4CAF50' : '#ff8585';
+    window.setTimeout(function() {
+      document.getElementById('card-' + card).style.backgroundColor = '#5265b3';
+      system.reviewFlashcard(window.currentWordIndex, acertou);
+      newCard();
+    }, 300);
   }
-  newCard();
 };
 
 function saveToLocalStorage(system) {
@@ -166,10 +168,21 @@ const setInfo = function() {
   ;
 };
 
+/*
+const AUDIOS = [];
+const preloadAudios = function() {
+  for (let i = 0; i < WORDS.length; i++) {
+    AUDIOS[WORDS[i]] = new Audio('./audio/' + WORDS[i].word_en + '.mp3');
+  }
+};
+preloadAudios();
+*/
+
 window.addEventListener("load", function () {
   document.getElementById("bt-play").addEventListener("click", function () {
     let audio = new Audio('./audio/' + window.currentWord.word_en + '.mp3');
     audio.play();
+    //AUDIOS[window.currentWord.word_en].play();
   });
   document.getElementById("card-1").addEventListener("click", function () {
     clickReview(1);
