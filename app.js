@@ -87,8 +87,15 @@ function shuffleArray(array) {
   return array;
 }
 
+let nextFlashcard = null;
+let nextAudio = null;
 const newCard = function() {
-  const flashcard = system.getRandomFlashcard();
+  let flashcard = null;
+  if (nextFlashcard != null) {
+    flashcard = nextFlashcard;
+  } else {
+    flashcard = system.getRandomFlashcard();
+  }
   if (flashcard) {
     let words = [];
     words.push({
@@ -115,10 +122,18 @@ const newCard = function() {
     window.currentWord = WORDS[flashcard.index];
     window.currentShuffle = words;
 
-    let audio = new Audio('./audio/' + window.currentWord.word_en + '.mp3');
+    let audio = null;
+    if (nextAudio != null) {
+      audio = nextAudio;
+    } else {
+      audio = new Audio('./audio/' + window.currentWord.word_en + '.mp3');
+    }
     audio.play();
-    //AUDIOS[window.currentWord.word_en].play();
+
+    nextFlashcard = system.getRandomFlashcard();
+    nextAudio = new Audio('./audio/' + WORDS[nextFlashcard.index].word_en + '.mp3');
   }
+  
 };
 
 let system = null;
